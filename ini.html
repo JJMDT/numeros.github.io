@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Números aleatorios</title>
+</head>
+<body>
+    <button id="empezar">Empezar</button>
+    <button id="finalizar">Finalizar</button>
+    <button id="reset">Reiniciar</button>
+    <div id="numero"></div>
+    <div id="cronometro"></div>
+    <div id="cont"></div>
+    <div id="caracteres"></div>
+    
+    <input type="text" id="entrada" disabled>
+    <script>
+        let numero;
+        let empezado = false;
+        let tiempoInicio;
+        let intervaloCronometro;
+        let cont = 0;
+        let totalCaracteres = 0;
+
+
+
+      
+            
+            
+     
+        
+        document.getElementById('reset').addEventListener('click',()=>{
+         document.getElementById('numero').textContent = ``;
+         document.getElementById('entrada').value = ''
+         document.getElementById('cont').textContent=``
+         document.getElementById('cronometro').textContent = ``
+         document.getElementById('caracteres').textContent = ``
+
+         cont = 0
+          totalCaracteres = 0;
+
+        })
+
+        document.getElementById('empezar').addEventListener('click', () => {
+          
+            if (!empezado) {
+                empezado = true;
+                document.getElementById('entrada').disabled = false;
+                numero = Math.floor(Math.random() * 90000000) + 10000000;
+                document.getElementById('numero').textContent = `Número generado: ${numero}`;
+                tiempoInicio = Date.now();
+                intervaloCronometro = setInterval(() => {
+                    const tiempoTranscurrido = Math.floor((Date.now() - tiempoInicio) / 1000);
+                    document.getElementById('cronometro').textContent = `Tiempo transcurrido: ${tiempoTranscurrido} segundos`;
+                }, 1000);
+            }
+        });
+        document.getElementById('finalizar').addEventListener('click', () => {
+            if (empezado) {
+                empezado = false;
+                document.getElementById('entrada').disabled = true;
+                document.getElementById('entrada').value = '';
+                clearInterval(intervaloCronometro);
+            }
+        });
+        document.getElementById('entrada').addEventListener('keyup', (event) => {
+            totalCaracteres = event.target.value.length;
+            document.getElementById('caracteres').textContent = `Total de caracteres ingresados: ${totalCaracteres}`;
+
+            if (event.key === 'Enter') {
+                if (parseInt(document.getElementById('entrada').value) === numero) {
+                    numero = Math.floor(Math.random() * 90000000) + 10000000;
+                    cont ++
+                    if (cont > 19) {
+                        empezado = false;
+                        document.getElementById('entrada').disabled = true;
+                        document.getElementById('entrada').value = '';
+                        clearInterval(intervaloCronometro);
+                        document.getElementById('cont').textContent=`numero realizados ${cont}`
+
+                        return ;
+                    }
+                    document.getElementById('numero').textContent = `Número generado: ${numero}`;
+                    document.getElementById('entrada').value = '';
+                    document.getElementById('cont').textContent=`numero realizados ${cont}`
+                }
+            }
+        });
+    
+    </script>
+</body>
+</html>

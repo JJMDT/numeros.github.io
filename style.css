@@ -1,0 +1,18 @@
+body{
+text-align: center;
+}
+#numero{   font-size: 50px;
+    padding: 20px;
+    color: red;
+}
+#cronometro{
+    font-size: 20px;
+    padding: 20px;
+}
+#entrada{
+    font-size: 50px;
+    padding: 20px;
+}
+#cont {
+    font-weight: bold;
+}
